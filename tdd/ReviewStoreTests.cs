@@ -56,17 +56,17 @@ namespace tdd
 
 
         [Test]
-        public void TableForMovieIsZeroIfNoReviews()
+        public void RatingMapHasZeroValuesWhenMovieHasNoReviews()
         {
             var expectedTable = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
-            var resultTable = reviewStore.GetTableFor(exampleMovie);
+            var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
-            CollectionAssert.AreEquivalent(expectedTable, resultTable);
+            CollectionAssert.AreEquivalent(expectedTable, ratingMap);
         }
 
         [Test]
-        public void TableForMovieIsValueIfOneReview()
+        public void RatingMapHasOneNonZeroValueWhenMovieHasOneReview()
         {
             var review = new Review
             {
@@ -74,13 +74,13 @@ namespace tdd
             };
             reviewStore.LeaveReviewFor(exampleMovie, review);
 
-            var table = reviewStore.GetTableFor(exampleMovie);
+            var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
-            Assert.AreEqual(1, table[3]);
-            Assert.AreEqual(0, table[1]);
-            Assert.AreEqual(0, table[2]);
-            Assert.AreEqual(0, table[4]);
-            Assert.AreEqual(0, table[5]);
+            Assert.AreEqual(1, ratingMap[3]);
+            Assert.AreEqual(0, ratingMap[1]);
+            Assert.AreEqual(0, ratingMap[2]);
+            Assert.AreEqual(0, ratingMap[4]);
+            Assert.AreEqual(0, ratingMap[5]);
         }
 
         [SetUp]

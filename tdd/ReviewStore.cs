@@ -31,7 +31,7 @@ namespace tdd
             return m_Reviews[movie].Average(x => x.Rating);
         }
 
-        public IDictionary<int, int> GetTableFor(Movie movie)
+        public IDictionary<int, int> GetRatingMap(Movie movie)
         {
             var t = new Dictionary<int, int>();
             for (var i = 1; i <= 5; i++)
