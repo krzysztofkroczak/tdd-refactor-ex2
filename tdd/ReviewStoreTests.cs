@@ -8,9 +8,6 @@ namespace tdd
         [Test]
         public void CanLeaveReview()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
-            // reviewStore.Register(m);
             var r = new Review
             {
                 Rating = 1,
@@ -19,18 +16,15 @@ namespace tdd
 
             };
 
-            reviewStore.LeaveReviewFor(m, r);
+            reviewStore.LeaveReviewFor(exampleMovie, r);
 
-            Assert.IsTrue(reviewStore.ContainsReviewFor(m, r));
+            Assert.IsTrue(reviewStore.ContainsReviewFor(exampleMovie, r));
         }
 
         [Test]
         public void AverageForNoReviewsIsZero()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
-
-            var averageScore = reviewStore.CalculateAverageFor(m);
+            var averageScore = reviewStore.CalculateAverageFor(exampleMovie);
 
             Assert.Zero(averageScore);
         }
@@ -38,15 +32,13 @@ namespace tdd
         [Test]
         public void AverageForOneReviewIsValue()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
             var review = new Review
             {
                 Rating = 3
             };
-            reviewStore.LeaveReviewFor(m, review);
+            reviewStore.LeaveReviewFor(exampleMovie, review);
 
-            var averageRating = reviewStore.CalculateAverageFor(m);
+            var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
 
             Assert.AreEqual(3, averageRating);
         }
@@ -54,8 +46,6 @@ namespace tdd
         [Test]
         public void AverageForTwoReviewsIsMean()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
             var review = new Review
             {
                 Rating = 3
@@ -64,10 +54,10 @@ namespace tdd
             {
                 Rating = 4
             };
-            reviewStore.LeaveReviewFor(m, review);
-            reviewStore.LeaveReviewFor(m, review2);
+            reviewStore.LeaveReviewFor(exampleMovie, review);
+            reviewStore.LeaveReviewFor(exampleMovie, review2);
 
-            var averageRating = reviewStore.CalculateAverageFor(m);
+            var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
 
             Assert.AreEqual(3.5, averageRating);
         }
@@ -76,10 +66,7 @@ namespace tdd
         [Test]
         public void TableForMovieIsZeroIfNoReviews()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
-
-            var table = reviewStore.GetTableFor(m);
+            var table = reviewStore.GetTableFor(exampleMovie);
 
             for (var i = 1; i <= 5; i++)
             {
@@ -90,15 +77,13 @@ namespace tdd
         [Test]
         public void TableForMovieIsValueIfOneReview()
         {
-            var reviewStore = new ReviewStore();
-            var m = new Movie("The Abyss");
             var review = new Review
             {
                 Rating = 3
             };
-            reviewStore.LeaveReviewFor(m, review);
+            reviewStore.LeaveReviewFor(exampleMovie, review);
 
-            var table = reviewStore.GetTableFor(m);
+            var table = reviewStore.GetTableFor(exampleMovie);
 
             Assert.AreEqual(1, table[3]);
             Assert.AreEqual(0, table[1]);
@@ -106,5 +91,21 @@ namespace tdd
             Assert.AreEqual(0, table[4]);
             Assert.AreEqual(0, table[5]);
         }
+
+        [SetUp]
+        public void InitializeReviewStore()
+        {
+            reviewStore = new ReviewStore();
+        }
+
+        [SetUp]
+        public void InitializeExampleMovie()
+        {
+            exampleMovie = new Movie("The Abyss");
+        }
+
+
+        private ReviewStore reviewStore;
+        private Movie exampleMovie;
     }
 }
