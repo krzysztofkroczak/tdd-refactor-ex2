@@ -59,6 +59,18 @@ namespace tdd
             CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
         }
 
+        [Test]
+        public void RatingMapCountReviewsInProperRow()
+        {
+            reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = 3 });
+            reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = 3 });
+            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 2 }, { 4, 0 }, { 5, 0 } };
+
+            var ratingMap = reviewStore.GetRatingMap(exampleMovie);
+
+            CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
+        }
+
         [SetUp]
         public void InitializeReviewStore()
         {
