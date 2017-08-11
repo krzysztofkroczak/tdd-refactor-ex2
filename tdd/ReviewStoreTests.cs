@@ -22,38 +22,20 @@ namespace tdd
             Assert.IsTrue(reviewStore.ContainsReviewFor(exampleMovie, r));
         }
 
-        [Test]
-        public void AverageForNoReviewsIsZero()
+        [TestCase(new int[0], 0)]
+        [TestCase(new[] { 3 }, 3)]
+        [TestCase(new[] { 3, 4 }, 3.5)]
+        public void CalculateAverageFor_ReturnsAverage(int [] reviewsRating, decimal expectedAverage)
         {
-            var averageScore = reviewStore.CalculateAverageFor(exampleMovie);
-
-            Assert.Zero(averageScore);
-        }
-
-        [Test]
-        public void AverageForOneReviewIsValue()
-        {
-            var review = new Review { Rating = 3 };
-            reviewStore.LeaveReviewFor(exampleMovie, review);
+            foreach (var rating in reviewsRating)
+            {
+                reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = rating });
+            }
 
             var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
 
-            Assert.AreEqual(3, averageRating);
+            Assert.AreEqual(expectedAverage, averageRating);
         }
-
-        [Test]
-        public void AverageForTwoReviewsIsMean()
-        {
-            var review = new Review { Rating = 3 };
-            var review2 = new Review { Rating = 4 };
-            reviewStore.LeaveReviewFor(exampleMovie, review);
-            reviewStore.LeaveReviewFor(exampleMovie, review2);
-
-            var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
-
-            Assert.AreEqual(3.5, averageRating);
-        }
-
 
         [Test]
         public void RatingMapHasZeroValuesWhenMovieHasNoReviews()
@@ -68,10 +50,7 @@ namespace tdd
         [Test]
         public void RatingMapHasOneNonZeroValueWhenMovieHasOneReview()
         {
-            var review = new Review
-            {
-                Rating = 3
-            };
+            var review = new Review { Rating = 3 };
             reviewStore.LeaveReviewFor(exampleMovie, review);
             var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } };
 
