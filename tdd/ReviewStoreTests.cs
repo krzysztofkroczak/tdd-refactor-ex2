@@ -55,8 +55,8 @@ namespace tdd
         {
             get
             {
-                yield return new TestCaseData(new int[0], new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } });
-                yield return new TestCaseData(new[] { 3 }, new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } });
+                yield return new TestCaseData(new int[0],     new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } });
+                yield return new TestCaseData(new[] { 3 },    new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } });
                 yield return new TestCaseData(new[] { 3, 3 }, new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 2 }, { 4, 0 }, { 5, 0 } });
             }
         }
