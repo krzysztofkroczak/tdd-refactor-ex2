@@ -32,7 +32,7 @@ namespace tdd
         [Test]
         public void DefaultReviewerNameIsAnonymous()
         {
-            Assert.AreEqual("Anonymous", (new Review()).ReviewerName);
+            Assert.AreEqual("Anonymous", new Review().ReviewerName);
         }
     }
 }
