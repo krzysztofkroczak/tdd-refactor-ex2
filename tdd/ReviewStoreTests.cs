@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace tdd
@@ -25,9 +26,9 @@ namespace tdd
         [TestCase(new int[0], 0)]
         [TestCase(new[] { 3 }, 3)]
         [TestCase(new[] { 3, 4 }, 3.5)]
-        public void CalculateAverageFor_ReturnsAverage(int [] reviewsRating, decimal expectedAverage)
+        public void CalculateAverageFor_ReturnsAverage(int[] reviewsRatings, decimal expectedAverage)
         {
-            foreach (var rating in reviewsRating)
+            foreach (var rating in reviewsRatings)
             {
                 reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = rating });
             }
@@ -37,38 +38,27 @@ namespace tdd
             Assert.AreEqual(expectedAverage, averageRating);
         }
 
-        [Test]
-        public void RatingMapHasZeroValuesWhenMovieHasNoReviews()
+        [Test, TestCaseSource(typeof(ReviewStoreTests), nameof(ReviewRatingPerRatingMap))]
+        public void GetRatingMap_ReturnsRatingValuePerCountReview(int[] reviewsRatings, IDictionary expectedRatingMap)
         {
-            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            foreach (var rating in reviewsRatings)
+            {
+                reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = rating });
+            }
 
             var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
             CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
         }
 
-        [Test]
-        public void RatingMapHasOneNonZeroValueWhenMovieHasOneReview()
+        public static IEnumerable ReviewRatingPerRatingMap
         {
-            var review = new Review { Rating = 3 };
-            reviewStore.LeaveReviewFor(exampleMovie, review);
-            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } };
-
-            var ratingMap = reviewStore.GetRatingMap(exampleMovie);
-
-            CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
-        }
-
-        [Test]
-        public void RatingMapCountReviewsInProperRow()
-        {
-            reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = 3 });
-            reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = 3 });
-            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 2 }, { 4, 0 }, { 5, 0 } };
-
-            var ratingMap = reviewStore.GetRatingMap(exampleMovie);
-
-            CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
+            get
+            {
+                yield return new TestCaseData(new int[0], new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } });
+                yield return new TestCaseData(new[] { 3 }, new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } });
+                yield return new TestCaseData(new[] { 3, 3 }, new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 2 }, { 4, 0 }, { 5, 0 } });
+            }
         }
 
         [SetUp]
