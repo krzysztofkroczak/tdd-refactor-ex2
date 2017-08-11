@@ -10,7 +10,7 @@ namespace tdd
         [Test]
         public void CanLeaveReview()
         {
-            var r = new Review(1)
+            var r = new Review(rating:1)
             {
                 ReviewerName = "Bob",
                 ReviewText = "Couldn't get into"
