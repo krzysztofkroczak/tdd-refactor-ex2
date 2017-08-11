@@ -10,12 +10,10 @@ namespace tdd
         [Test]
         public void CanLeaveReview()
         {
-            var r = new Review
+            var r = new Review(1)
             {
-                Rating = 1,
                 ReviewerName = "Bob",
                 ReviewText = "Couldn't get into"
-
             };
 
             reviewStore.LeaveReviewFor(exampleMovie, r);
@@ -30,7 +28,7 @@ namespace tdd
         {
             foreach (var rating in reviewsRatings)
             {
-                reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = rating });
+                reviewStore.LeaveReviewFor(exampleMovie, new Review(rating));
             }
 
             var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
@@ -43,7 +41,7 @@ namespace tdd
         {
             foreach (var rating in reviewsRatings)
             {
-                reviewStore.LeaveReviewFor(exampleMovie, new Review { Rating = rating });
+                reviewStore.LeaveReviewFor(exampleMovie, new Review(rating));
             }
 
             var ratingMap = reviewStore.GetRatingMap(exampleMovie);

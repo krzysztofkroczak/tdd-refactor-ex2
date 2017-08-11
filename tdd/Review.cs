@@ -4,13 +4,14 @@ namespace tdd
 {
     class Review
     {
-
-        private int m_Rating;
+        public Review(int rating)
+        {
+            Rating = rating;
+        }
 
         public int Rating
         {
-            get { return m_Rating;}
-
+            get => m_Rating;
             set
             {
                 if (value > 5 || value < 1)
@@ -22,8 +23,9 @@ namespace tdd
             }
         }
 
-
         public string ReviewerName { get; set; } = "Anonymous";
         public string ReviewText { get; set;  }
+
+        private int m_Rating;
     }
 }

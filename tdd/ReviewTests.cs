@@ -13,9 +13,8 @@ namespace tdd
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
                 {
-                    new Review
+                    new Review(ratingWhichExceedRatingRange)
                     {
-                        Rating = ratingWhichExceedRatingRange,
                         ReviewerName = "Alice",
                         ReviewText = "Out of this world"
                     };
@@ -26,7 +25,7 @@ namespace tdd
         [Test]
         public void DefaultReviewerNameIsAnonymous()
         {
-            Assert.AreEqual("Anonymous", new Review().ReviewerName);
+            Assert.AreEqual("Anonymous", new Review(1).ReviewerName);
         }
     }
 }
