@@ -58,11 +58,11 @@ namespace tdd
         [Test]
         public void RatingMapHasZeroValuesWhenMovieHasNoReviews()
         {
-            var expectedTable = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
             var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
-            CollectionAssert.AreEquivalent(expectedTable, ratingMap);
+            CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
         }
 
         [Test]
@@ -73,11 +73,11 @@ namespace tdd
                 Rating = 3
             };
             reviewStore.LeaveReviewFor(exampleMovie, review);
-            var expectedTable = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } };
+            var expectedRatingMap = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } };
 
             var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
-            CollectionAssert.AreEquivalent(expectedTable, ratingMap);
+            CollectionAssert.AreEquivalent(expectedRatingMap, ratingMap);
         }
 
         [SetUp]
