@@ -32,10 +32,7 @@ namespace tdd
         [Test]
         public void AverageForOneReviewIsValue()
         {
-            var review = new Review
-            {
-                Rating = 3
-            };
+            var review = new Review { Rating = 3 };
             reviewStore.LeaveReviewFor(exampleMovie, review);
 
             var averageRating = reviewStore.CalculateAverageFor(exampleMovie);
@@ -46,14 +43,8 @@ namespace tdd
         [Test]
         public void AverageForTwoReviewsIsMean()
         {
-            var review = new Review
-            {
-                Rating = 3
-            };
-            var review2 = new Review
-            {
-                Rating = 4
-            };
+            var review = new Review { Rating = 3 };
+            var review2 = new Review { Rating = 4 };
             reviewStore.LeaveReviewFor(exampleMovie, review);
             reviewStore.LeaveReviewFor(exampleMovie, review2);
 
