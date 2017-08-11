@@ -73,14 +73,11 @@ namespace tdd
                 Rating = 3
             };
             reviewStore.LeaveReviewFor(exampleMovie, review);
+            var expectedTable = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 4, 0 }, { 5, 0 } };
 
             var ratingMap = reviewStore.GetRatingMap(exampleMovie);
 
-            Assert.AreEqual(1, ratingMap[3]);
-            Assert.AreEqual(0, ratingMap[1]);
-            Assert.AreEqual(0, ratingMap[2]);
-            Assert.AreEqual(0, ratingMap[4]);
-            Assert.AreEqual(0, ratingMap[5]);
+            CollectionAssert.AreEquivalent(expectedTable, ratingMap);
         }
 
         [SetUp]
