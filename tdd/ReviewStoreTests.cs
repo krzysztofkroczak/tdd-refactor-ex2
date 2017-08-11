@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace tdd
 {
@@ -57,12 +58,11 @@ namespace tdd
         [Test]
         public void TableForMovieIsZeroIfNoReviews()
         {
-            var table = reviewStore.GetTableFor(exampleMovie);
+            var expectedTable = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
-            for (var i = 1; i <= 5; i++)
-            {
-                Assert.Zero(table[i]);
-            }
+            var resultTable = reviewStore.GetTableFor(exampleMovie);
+
+            CollectionAssert.AreEquivalent(expectedTable, resultTable);
         }
 
         [Test]
