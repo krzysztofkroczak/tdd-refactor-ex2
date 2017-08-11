@@ -7,14 +7,6 @@ namespace tdd
 {
     class ReviewStore
     {
-        
-        private Dictionary<Movie, List<Review>> m_Reviews = new Dictionary<Movie, List<Review>>();
-
-        private void Register(Movie movie)
-        {
-            m_Reviews.Add(movie, new List<Review>());
-        }
-
         public void LeaveReviewFor(Movie movie, Review review)
         {
             if (!m_Reviews.ContainsKey(movie))
@@ -23,11 +15,6 @@ namespace tdd
             }
 
             m_Reviews[movie].Add(review);
-        }
-
-        public bool Contains(Movie movie)
-        {
-            return m_Reviews.ContainsKey(movie);
         }
 
         public bool ContainsReviewFor(Movie movie, Review review)
@@ -42,18 +29,6 @@ namespace tdd
                 return 0;
             }
             return m_Reviews[movie].Average(x => x.Rating);
-        }
-
-        private IEnumerable<Review> GetReviewsFor(Movie movie)
-        {
-            if (m_Reviews.ContainsKey(movie))
-            {
-                return m_Reviews[movie];
-            }
-            else
-            {
-                return new List<Review>();
-            }
         }
 
         public IDictionary<int, int> GetTableFor(Movie movie)
@@ -75,5 +50,24 @@ namespace tdd
 
             return t;
         }
+
+        private void Register(Movie movie)
+        {
+            m_Reviews.Add(movie, new List<Review>());
+        }
+
+        private IEnumerable<Review> GetReviewsFor(Movie movie)
+        {
+            if (m_Reviews.ContainsKey(movie))
+            {
+                return m_Reviews[movie];
+            }
+            else
+            {
+                return new List<Review>();
+            }
+        }
+
+        private Dictionary<Movie, List<Review>> m_Reviews = new Dictionary<Movie, List<Review>>();
     }
 }
