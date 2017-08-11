@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
+﻿using NUnit.Framework;
 
 namespace tdd
 {
     [TestFixture]
     class ReviewStoreTests
     {
-
-
-
         [Test]
         public void CanLeaveReview()
         {
@@ -30,30 +21,6 @@ namespace tdd
 
             reviewStore.LeaveReviewFor(m, r);
             Assert.IsTrue(reviewStore.ContainsReviewFor(m, r));
-        }
-
-        [Test]
-        public void ReviewScoreRangeIsChecked()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(
-                () =>
-                {
-                    new Review
-                    {
-                        Rating = 6,
-                        ReviewerName = "Alice",
-                        ReviewText = "Out of this world"
-                    };
-                }
-            );
-
-
-        }
-
-        [Test]
-        public void DefaultReviewerNameIsAnonymous()
-        {
-            Assert.AreEqual("Anonymous", (new Review()).ReviewerName);
         }
 
         [Test]
@@ -113,7 +80,6 @@ namespace tdd
             }
         }
 
-
         [Test]
         public void TableForMovieIsValueIfOneReview()
         {
@@ -131,7 +97,6 @@ namespace tdd
             Assert.AreEqual(0, table[2]);
             Assert.AreEqual(0, table[4]);
             Assert.AreEqual(0, table[5]);
-
         }
     }
 }

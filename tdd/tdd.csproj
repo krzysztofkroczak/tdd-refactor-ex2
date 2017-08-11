@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{60BFAC68-51B9-447E-AB00-9C8BC3BBCBE1}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>tdd</RootNamespace>
     <AssemblyName>tdd</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
@@ -50,6 +53,7 @@
     <Compile Include="ReviewStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewStoreTests.cs" />
+    <Compile Include="ReviewTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
