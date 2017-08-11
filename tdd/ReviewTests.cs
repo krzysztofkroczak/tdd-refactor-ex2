@@ -10,15 +10,16 @@ namespace tdd
     [TestFixture]
     class ReviewTests
     {
-        [Test]
-        public void Review_ThrowsArgumentException_WhenRatingExceedsLimits()
+        [TestCase(6)]
+        [TestCase(0)]
+        public void Review_ThrowsArgumentException_WhenRatingExceedsLimits(int ratingWhichExceedRatingRange)
         {
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
                 {
                     new Review
                     {
-                        Rating = 6,
+                        Rating = ratingWhichExceedRatingRange,
                         ReviewerName = "Alice",
                         ReviewText = "Out of this world"
                     };
