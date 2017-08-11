@@ -11,7 +11,7 @@ namespace tdd
     class ReviewTests
     {
         [Test]
-        public void ReviewScoreRangeIsChecked()
+        public void Review_ThrowsArgumentException_WhenRatingExceedsLimits()
         {
             Assert.Throws<ArgumentOutOfRangeException>(
                 () =>
